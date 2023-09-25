@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿CÓMO TE SIENTES?"
+        android:textSize="35dp"
+        android:contentDescription="Pregunta sobre tu estado emocional"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.061" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="362dp"
+        android:layout_height="96dp"
+        android:contentDescription="Instrucciones: Llena este formulario para obtener indicaciones sobre tu bienestar emocional"
+        android:text="Llena este formulario para darte las mejores indicaciones para lograr tu bienestar emocional a futuro: se enviara a un experto y se guardara en tu historial."
+        android:textAlignment="center"
+        android:textColor="#88000000"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.026" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="355dp"
+        android:layout_height="321dp"
+        android:background="#1234F4E5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.0">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Dolor de Cabeza"
+                android:textSize="25dp">
+
+            </Switch>
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Nerviosismo"
+                android:textSize="25dp">
+
+            </Switch>
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Agitacion"
+                android:textSize="25dp">
+
+            </Switch>
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Sobrepensamiento"
+                android:textSize="25dp">
+
+            </Switch>
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Pena"
+                android:textSize="25dp">
+
+            </Switch>
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Ira"
+                android:textSize="25dp">
+
+            </Switch>
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Frustracion"
+                android:textSize="25dp">
+
+            </Switch>
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Nudo en la garganta"
+                android:textSize="25dp">
+
+            </Switch>
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Molestia de estomago"
+                android:textSize="25dp">
+
+            </Switch>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ayuda"
+        app:layout_constraintBottom_toTopOf="@+id/btnVolver"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:layout_constraintVertical_bias="0.716" />
+
+    <Button
+        android:id="@+id/btnVolver"
+        android:layout_width="140dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="48dp"
+        android:text="Volver"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
