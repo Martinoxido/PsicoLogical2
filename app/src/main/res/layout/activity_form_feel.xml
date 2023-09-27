@@ -9,9 +9,9 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="Pregunta sobre tu estado emocional"
         android:text="¿CÓMO TE SIENTES?"
         android:textSize="35dp"
-        android:contentDescription="Pregunta sobre tu estado emocional"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -54,6 +54,7 @@
             android:orientation="vertical">
 
             <Switch
+                android:id="@+id/dolorcabeza"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="Dolor de Cabeza"
@@ -62,6 +63,7 @@
             </Switch>
 
             <Switch
+                android:id="@+id/nervios"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="Nerviosismo"
@@ -70,6 +72,7 @@
             </Switch>
 
             <Switch
+                android:id="@+id/agitacion"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="Agitacion"
@@ -78,6 +81,7 @@
             </Switch>
 
             <Switch
+                android:id="@+id/Sobrepe"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="Sobrepensamiento"
@@ -86,6 +90,7 @@
             </Switch>
 
             <Switch
+                android:id="@+id/Pena"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="Pena"
@@ -94,6 +99,7 @@
             </Switch>
 
             <Switch
+                android:id="@+id/ira"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="Ira"
@@ -102,6 +108,7 @@
             </Switch>
 
             <Switch
+                android:id="@+id/frustracion"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="Frustracion"
@@ -110,6 +117,7 @@
             </Switch>
 
             <Switch
+                android:id="@+id/nudo"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="Nudo en la garganta"
@@ -118,6 +126,7 @@
             </Switch>
 
             <Switch
+                android:id="@+id/molestia"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="Molestia de estomago"
@@ -134,22 +143,37 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:text="Ayuda"
-        app:layout_constraintBottom_toTopOf="@+id/btnVolver"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:layout_constraintVertical_bias="0.716" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnVolver"
-        android:layout_width="140dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="48dp"
-        android:text="Volver"
+        android:layout_width="85dp"
+        android:layout_height="74dp"
+        android:adjustViewBounds="true"
+        android:background="@color/white"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintVertical_bias="0.311"
+        app:srcCompat="@drawable/volver_static" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Volver"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnVolver"
+        app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
