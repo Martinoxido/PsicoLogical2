@@ -58,7 +58,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="Dolor de Cabeza"
-                android:textSize="25dp">
+                android:textSize="25dp"
+               >
+
 
             </Switch>
 

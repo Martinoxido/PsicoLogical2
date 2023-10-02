@@ -35,6 +35,7 @@ public class FormFeel extends AppCompatActivity {
         Switch sw7 = (Switch) findViewById(R.id.frustracion);
         Switch sw8 = (Switch) findViewById(R.id.nudo);
         Switch sw9 = (Switch) findViewById(R.id.molestia);
+
         //***************************************ZONA DE CHECKEO***************************************//
         sw1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -168,7 +169,7 @@ public class FormFeel extends AppCompatActivity {
 
                         Intent intent = new Intent(FormFeel.this, Ayuda.class);
                         String[] datoArray = datos.toArray(new String[0]);
-                        intent.putExtra("clave", datoArray); // "clave" es una etiqueta para identificar el dato
+                        intent.putExtra("clave", datoArray);
                         startActivity(intent);
 
                         return true;
