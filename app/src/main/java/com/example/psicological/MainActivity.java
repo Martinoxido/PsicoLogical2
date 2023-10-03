@@ -15,6 +15,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button saltarbtn = (Button) findViewById(R.id.button2);
+        Button btnReg = (Button) findViewById(R.id.button3);
+
+        btnReg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, Register.class));
+            }
+        });
         saltarbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
