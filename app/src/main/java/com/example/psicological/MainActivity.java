@@ -16,7 +16,13 @@ public class MainActivity extends AppCompatActivity {
 
         Button saltarbtn = (Button) findViewById(R.id.button2);
         Button btnReg = (Button) findViewById(R.id.button3);
-
+        Button btn = (Button) findViewById(R.id.button);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, Maps.class));
+            }
+        });
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
