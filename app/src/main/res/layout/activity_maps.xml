@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="488dp"
         android:padding="16dp"
-        android:text="Distancia entre Santiago y Valparaíso: "
+        android:text="En este activity se vera tu ubicacion, para utilidades futuras"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,16 +1,24 @@
 package com.example.psicological;
+
+
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.LocationRequest;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.TextView;
+
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -19,32 +27,41 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
+
 import android.Manifest;
+import android.widget.Toast;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+
 
 public class Maps extends AppCompatActivity {
     private MapView mapView;
     private MyLocationNewOverlay myLocationOverlay;
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permiso concedido, ahora puedes realizar la lógica para obtener la ubicación
-                // Puedes iniciar la obtención de la ubicación aquí
-            } else {
-                // Permiso denegado, puedes mostrar un mensaje al usuario o realizar alguna acción en caso de denegación
-            }
-        }
-    }
+    private FusedLocationProviderClient fusedLocationClient;
+    private LocationCallback locationCallback;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    Marker MiMarker;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        TextView txt = (TextView) findViewById(R.id.distanceTextView);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+
+
         Configuration.getInstance().load(getApplicationContext(),
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
 
         Configuration.getInstance().load(getApplicationContext(),
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
@@ -65,29 +82,6 @@ public class Maps extends AppCompatActivity {
 
         }
 
-        LocationListener locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(@NonNull Location location) {
-
-                GeoPoint santiagoPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
-                // Agrega la capa al mapa
-                mapView.getOverlays().add(myLocationOverlay);
-                Log.d("Ubicación", "Latitud: " + location.getLatitude() + ", Longitud: " + location.getLongitude());
-                pos.setPosition(santiagoPoint);
-                pos.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                pos.setTitle("Santiago, Chile");
-                pos.setSnippet("Capital de Chile");
-                mapView.getOverlays().add(pos);
-
-            }
-        };
-
-
-        /*MapView mapView = findViewById(R.id.mapView);
-        mapView.setTileSource(TileSourceFactory.MAPNIK);
-        mapView.setBuiltInZoomControls(true);
-        mapView.setMultiTouchControls(true);
-        */
 
         //Coordenadas de Santiago, Chile
         double santiagoLatitude = -33.4489;
@@ -112,6 +106,10 @@ public class Maps extends AppCompatActivity {
         //Agregar marcadores al mapa
         mapView.getOverlays().add(santiagoMarker);
         mapView.getOverlays().add(valparaisoMarker);
+        // Verificar y solicitar permisos si es necesario
+        if (checkLocationPermission()) {
+            requestLocation();
+        }
 
 
         //Crear y agregar la línea entre Santiago y Valparaíso
@@ -131,9 +129,55 @@ public class Maps extends AppCompatActivity {
         IMapController mapController = mapView.getController();
         mapController.setCenter(santiagoPoint);
         mapController.setZoom(14); // Puedes ajustar el nivel de zoom según sea necesario
+    }
 
+    private boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Si no se tienen permisos, solicitarlos en tiempo de ejecución
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+            return false;
+        }
+        return true;
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                requestLocation(); // Si se otorgan los permisos, obtener la ubicación
+            }
+        }
+    }
 
-
+    private void requestLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            double latitude = location.getLatitude();
+                            double longitude = location.getLongitude();
+                            GeoPoint MiPoint = new GeoPoint(latitude,longitude);
+                            MiMarker = new Marker(mapView);
+                            MiMarker.setPosition(MiPoint);
+                            MiMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                            MiMarker.setTitle("Mi Ubicacion");
+                            MiMarker.setSnippet("estas aquí");
+                            mapView.getOverlays().add(MiMarker);
+                            // Haz lo que quieras con las coordenadas aquí
+                        }
+                    }
+                });
     }
 }
